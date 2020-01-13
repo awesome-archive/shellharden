@@ -1,0 +1,9 @@
+[package]
+name = "shellharden"
+version = "4.1.1"
+authors = ["Andreas Nordal"]
+repository = "https://github.com/anordal/shellharden/"
+description = "The corrective bash syntax highlighter"
+license = "MPL-2.0"
+
+[dependencies]

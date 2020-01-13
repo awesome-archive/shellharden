@@ -1,11 +1,13 @@
 <img src="img/logo.png" align="right"/>
 
 Shellharden
-=========
+===========
 
-A bash syntax highlighter that encourages (and can fix) proper quoting of variables.
+Shellharden is a syntax highlighter and a tool to semi-automate the rewriting
+of scripts to ShellCheck conformance, mainly focused on quoting.
 
-Because rewriting scripts to adhere to the *always use quotes* principle can be daunting:
+The default mode of operation is like `cat`, but with syntax highlighting in
+foreground colors and suggestive changes in background colors:
 
 ![real-world example](img/ex-realworld.png)
 
@@ -44,10 +46,44 @@ Prior art
 
 * I asked [this SO question][3], for a tool that could rewrite bash scripts with proper quoting. One answerer beat me to it. But if it was me, I would do a syntax highlighter in the same tool (as a way to see if the parser gets lost, and make the most out of the parser, because bash is like quantum mechanics – nobody really knows how it works).
 
-Build
------
+Get it
+------
 
-    rustc shellharden.rs
+Distro packages:
+
+* [Arch](https://www.archlinux.org/packages/community/x86_64/shellharden/)
+* [Homebrew](https://formulae.brew.sh/formula/shellharden)
+
+Official [rust package](https://crates.io/crates/shellharden):
+
+    cargo install shellharden
+
+For those allergic to building from source, a few precompiled binaries are also available in the [releases](https://github.com/anordal/shellharden/releases).
+
+Build from source
+-----------------
+
+    cargo build --release
+
+### Run tests
+
+    cargo test --release
+
+(requires bash)
+
+### Install
+
+    cp target/release/shellharden /usr/local/bin/
+
+### Build docker image
+
+    docker build -t shellharden .
+
+### Fuzz test
+
+    cargo install afl
+    cargo afl build --release
+    cargo afl fuzz -i moduletests/original -o /tmp/fuzz-shellharden target/release/shellharden '@@'
 
 Usage advice
 ------------
